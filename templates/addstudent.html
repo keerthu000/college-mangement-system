@@ -27,7 +27,7 @@
                 <a class="nav-link " href="{% url 'add_student' %}">Add Student</a>
               </li> 
                <li class="nav-item ">
-                <a class="nav-link " href="">Show Student Details</a>
+                <a class="nav-link " href="{% url 'show_student' %}">Show Student Details</a>
               </li> 
              
   
@@ -66,8 +66,9 @@
                       <select class="form-control" name="sel">
                           {% for c in course %}
                           <option value="{{c.id}}">{{c.course_name}}</option>
-                      </select>
                           {% endfor %}
+                      </select>
+                          
                           
                     </div>
                     

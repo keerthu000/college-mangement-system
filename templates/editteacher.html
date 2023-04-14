@@ -27,26 +27,26 @@
         <div class="col-12 col-lg-9 col-xl-7">
           <div class="card shadow-2-strong card-registration" style="border-radius:15px;">
             <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Teacher Registration Form</h3>
-              <form action="{% url 'edit_teacher' %}" method="post" enctype="multipart/form-data">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Profile</h3>
+              <form method="post" enctype="multipart/form-data">
                  {% csrf_token %}
                                 
                                 <div class="form-bg container"  >
                                   <div class="form-group" >
                                   <label class="mx-2 font-weight-bold">First Name</label>
-                                  <input type="text" name="fname" class="form-control" value={{users.first_name}}>
+                                  <input type="text" name="fname" class="form-control" value={{users.user.first_name}}>
                                   </div>
                                   <div class="form-group" >
                                   <label class="font-weight-bold">Last Name</label>
-                                  <input type="text" name="lname" class="form-control" value={{users.last_name}}>
+                                  <input type="text" name="lname" class="form-control" value={{users.user.last_name}}>
                                   </div>
                                   <div class="form-group" >
                                     <label class="font-weight-bold">User Name</label>
-                                    <input type="text" name="uname" class="form-control" value={{users.username}}>
+                                    <input type="text" name="uname" class="form-control" value={{users.user.username}}>
                                     </div>
                                     <div class="form-group" >
                                       <label class="font-weight-bold">Password</label>
-                                      <input type="password" name="password" class="form-control" value={{users.password}}>
+                                      <input type="password" name="password" class="form-control" value={{users.user.password}}>
                                       </div>
 
                                   <div class="form-group">
@@ -60,7 +60,7 @@
                                    
                                   <div>
                                     <label for="exampleFormControlInput1" class="form-label font-weight-bold">Email address</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" value={{users.email}}>
+                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email" value={{users.user.email}}>
                                   </div>
                                   <div>
                                     <label for="exampleFormControlInput1" class="form-label font-weight-bold">Contact Number</label>
@@ -68,23 +68,13 @@
                                   </div>
                                   <div>
                                     <label for="exampleFormControlInput1" class="form-label font-weight-bold" >Upload your Photo</label>
-                                    <input type="file" name="file" class="form-control mt-3" accept="image/*" value={{users.image.url}}>
+                                    <input type="file" name="file" >
+                                    {% if users.image %}
+                                    <img src="{{users.image.url}}" style="width:100px; height:100px;">
+                                    {% endif  %}
                                   </div>
-                                  <div class="form-outline mb-4">
-                                    <label for="exampleFormControlInput1" class="form-label font-weight-bold" >Select course</label>
-                                    <select class="form-control" name="sel">
-                                      {% for c in course %}
-                                      {% if c.id= users.course.id %}
-                                        <option value="{{c.id}}" selected>{{c.course_name}}</option>
-                                        {% else %}
-                                        <option value="{{c.id}}" selected>{{c.course_name}}</option>
-                                        {% endif %}
-                                        {% endfor %}
-                                    
-                                      </select>
-                                      </div>
                                     <div>
-                                      <button type="submit" class="btn btn-primary">Update</button>
+                                      <center><button type="submit" class="btn btn-primary">Update</button></center>
                                   </div>
                           
   </form>

@@ -44,31 +44,34 @@
   </nav>
 <body style="background-color:green";>
     <center>
-    <h1>Show Student Details</h1>
+    <h1>Show Teacher Details</h1>
     <table border="2">
         <thead>
             <tr>
-                <th>STUDENT NAME</th>
-                <th>EMAIL ADDRESS</th>
+                <th>Image</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>AGE</th>
-                <th>JOINING DATE</th>
-                <th>COURSE</th>
-                <th>COURSE FEE</th>
-                <th>ACTION</th>
+                <th>Address</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Action</th>
+
             </tr>
         </thead>
         <tbody>
-            {% for s in students %}
+            {% for s in teacher %}
             <tr>
-                <td>{{s.student_name}}</td>
-                <td>{{s.student_address}}</td>
-                <td>{{s.student_age}}</td>
-                <td>{{s.joining_date}}</td>
-               
+                <td><img class="card-img-top" src="{{s.image.url}}" alt="Card image cap"></td>
+                <td>{{s.user.first_name}}</td>
+                <td>{{s.user.last_name}}</td>
+                <td>{{s.age}}</td>
+                <td>{{s.address}}</td>
+                <td>{{s.user.username}}</td>
+                <td>{{s.user.email}}</td>
                 <td>{{s.course.course_name}}</td>
-                <td>{{s.course.fee}}</td>
-                <td><a href="{% url 'edit' s.id %}">Edit</a><br>
-                    <a href="{% url 'deletepage' s.id %}">Delete</a></td><br>
+                <td><a href="{% url 'deladmin' s.id %}">Delete</a></td>
                 
             </tr>
             {% endfor %}

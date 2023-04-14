@@ -28,34 +28,42 @@ def teacher_login(request):
 def teachershow(request):
     user_id=request.user.id
     show=Usermember.objects.get(user=user_id)
+    see=Usermember.objects.all()
     return render(request,'seepro.html',{'sh':show})
-def edittecherpage(request):
-    return render(request,'edi')
+
+
 def edit_teacher(request):
-    if request.user.is_authenticated:
-        current_user=request.user.id
-        user1=Usermember.objects.get(user_id=current_user)
-        user2=User.objects.get(id=current_user)
-        if request.method=="POST":
-            if len(request.FILES)!=0:
-                if len(user1.image)>0:
-                    os.remove(user1.image.path)
-                    user1.image=request.FILES.get('file')
-                user2.first_name=request.POST.get('fname')
-                user2.last_name=request.POST.get('lname')
-                user2.username=request.POST.get('uname')
-                user2.password=request.POST.get('password')
-                user2.email=request.POST.get('email')
-                user1.address=request.POST.get('adress')
-                user1.age=request.POST.get('age')
-                user1.number=request.POST.get('contact_num')
-                user1.save()
-                user2.save()
-                return redirect('showteacher')
-            return render(request,'editteacher.html',{"users":user1})
-    return render('/')
+   
+    current_user=request.user.id
+    user1=Usermember.objects.get(user_id=current_user)
+    user2=User.objects.get(id=current_user)
+    if request.method=="POST":
+        if len(request.FILES)!=0:
+            if len(user1.image)>0:
+                os.remove(user1.image.path)
+            user1.image=request.FILES.get('file')
+        user2.first_name=request.POST.get('fname')
+        user2.last_name=request.POST.get('lname')
+        user2.username=request.POST.get('uname')
+        user2.password=request.POST.get('password')
+        user2.email=request.POST.get('email')
+        user1.address=request.POST.get('adress')
+        user1.age=request.POST.get('age')
+        user1.number=request.POST.get('cnum')
+        user1.save()
+        user2.save()
+        return redirect('teachershow')
+    return render(request,'editteacher.html',{"users":user1})
+def showtechr(request):
+    sh=Usermember.objects.all()
+    return render(request,'showtecher.html',{'teacher':sh})
 
-
+def deladmin(request,id):
+    tea=Usermember.objects.get(user=id)
+    us=User.objects.get(id=id)
+    tea.delete()
+    us.delete()
+    return redirect('showtechr')
 def usercreate(request):
     if request.method=='POST':
         firstname=request.POST['fname']
